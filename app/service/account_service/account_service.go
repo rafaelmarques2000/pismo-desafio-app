@@ -7,8 +7,8 @@ import (
 )
 
 func Create(a account.Account) (account.Account, error) {
-	accountDb, _ := account_repository.GetByDocumentNumber(a.DocNumber)
-	if len(accountDb) > 0 {
+	listAccounts, _ := account_repository.GetByDocumentNumber(a.DocNumber)
+	if len(listAccounts) > 0 {
 		return account.Account{}, errors.New("conta já cadastrada")
 	}
 	return account_repository.Create(a)
