@@ -5,7 +5,6 @@ import (
 	"log"
 	"net/http"
 	"pismo-desafio-app/controllers/account"
-	"pismo-desafio-app/controllers/default"
 	"pismo-desafio-app/controllers/transaction"
 )
 
@@ -14,9 +13,6 @@ var router *mux.Router
 func Start() {
 	router = mux.NewRouter()
 	router.Use(globalMiddleware)
-
-	/** Default Routes **/
-	router.HandleFunc("/", _default.DefaultIndex).Methods("GET")
 
 	/** Accounts Routes **/
 	router.HandleFunc("/accounts", account.CreateAccount).Methods("POST")
