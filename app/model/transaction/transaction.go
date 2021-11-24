@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+/** ORM model e regra de negocio de validação para a transação **/
 type Transaction struct {
 	gorm.Model
 	AccountId       int
@@ -28,6 +29,7 @@ func (t *Transaction) CheckTransaction() error {
 	return nil
 }
 
+/** Struct Simples para retorno da api e entrada de dados **/
 type ApiTransaction struct {
 	Id uint `json:"id"`
 	AccountId int `json:"account_id"`
