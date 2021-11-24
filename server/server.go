@@ -13,16 +13,24 @@ var router *mux.Router
 
 func Start() {
 	router = mux.NewRouter()
+	router.Use(globalMiddleware)
 
 	/** Default Routes **/
 	router.HandleFunc("/", _default.DefaultIndex).Methods("GET")
 
 	/** Accounts Routes **/
 	router.HandleFunc("/accounts", account.CreateAccount).Methods("POST")
-	router.HandleFunc("/accounts", account.GetAccountById).Methods("GET")
+	router.HandleFunc("/accounts/{id}", account.GetAccountById).Methods("GET")
 
 	/** Transactions Routes **/
 	router.HandleFunc("/transactions", transaction.CreateTransaction).Methods("POST")
 
 	log.Fatal(http.ListenAndServe(":8080", router))
+}
+
+func globalMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Add("Content-Type", "application/json")
+		next.ServeHTTP(w, r)
+	})
 }
