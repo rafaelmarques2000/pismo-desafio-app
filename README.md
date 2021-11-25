@@ -17,9 +17,5 @@ Siga as instruções abaixo para iniciar o projeto
 
 #### Endpoints
 
-**Criar Conta**
-<br>
-POST /accounts
-<br>
-Request Body
+
 

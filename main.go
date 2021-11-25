@@ -1,14 +1,23 @@
 package main
 
 import (
+	"os"
 	"pismo-desafio-app/config/database"
-	"pismo-desafio-app/config/database/seed/operation_type_seeder"
+	"pismo-desafio-app/config/database/seed"
 	"pismo-desafio-app/server"
 )
 
-func main()  {
+func main() {
 	setupDatabase()
-	server.Start()
+	registerEnvVariables()
+	server.NewServer().Start()
+}
+
+func registerEnvVariables()  {
+	err := os.Setenv("SERVER_PORT", ":8080")
+	if err != nil {
+		return
+	}
 }
 
 func setupDatabase() {
@@ -17,5 +26,5 @@ func setupDatabase() {
 		panic("Falha ao iniciar app não foi possivel conectar com o banco de dados")
 	}
 	database.AutoMigratesDatabase()
-	operation_type_seeder.RunSeeder()
+	seed.NewOperationTypeSeeder().RunSeeder()
 }

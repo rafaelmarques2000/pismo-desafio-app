@@ -1,4 +1,4 @@
-package operationtype
+package model
 
 const COMPRA_A_VISTA = 1
 const COMPRA_PARCELADA = 2

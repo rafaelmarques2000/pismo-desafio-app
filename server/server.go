@@ -4,24 +4,34 @@ import (
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
-	"pismo-desafio-app/controllers/account"
-	"pismo-desafio-app/controllers/transaction"
+	"os"
+	"pismo-desafio-app/pkg/controller"
 )
 
-var router *mux.Router
+type Server struct {
+	accountController *controller.AccountController
+	transactionController *controller.TransactionController
+	router *mux.Router
+}
 
-func Start() {
-	router = mux.NewRouter()
-	router.Use(globalMiddleware)
+func NewServer() *Server {
+	return &Server{
+		accountController:     controller.NewAccountController(),
+		transactionController: controller.NewTransactionController(),
+		router:                mux.NewRouter(),
+	}
+}
 
-	/** Accounts Routes **/
-	router.HandleFunc("/accounts", account.CreateAccount).Methods("POST")
-	router.HandleFunc("/accounts/{id}", account.GetAccountById).Methods("GET")
+func (s *Server)Start() {
+	s.router.Use(globalMiddleware)
 
-	/** Transactions Routes **/
-	router.HandleFunc("/transactions", transaction.CreateTransaction).Methods("POST")
+	//Accounts Routes
+	s.router.HandleFunc("/accounts", s.accountController.CreateAccount).Methods("POST")
+	s.router.HandleFunc("/accounts/{id}", s.accountController.GetAccountById).Methods("GET")
 
-	log.Fatal(http.ListenAndServe(":8080", router))
+	//Transactions Routes
+	s.router.HandleFunc("/transactions", s.transactionController.CreateTransaction).Methods("POST")
+	log.Fatal(http.ListenAndServe(os.Getenv("SERVER_PORT"), s.router))
 }
 
 func globalMiddleware(next http.Handler) http.Handler {
