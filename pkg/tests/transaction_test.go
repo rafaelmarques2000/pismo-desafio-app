@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func TestIfCheckTransactionInvalid(t *testing.T) {
+func TestIfCheckInvalidTransactionForOperation(t *testing.T) {
 	var tx model.Transaction = model.Transaction{
 		Amount: 120,
 		Account: model.Account{
@@ -26,7 +26,7 @@ func TestIfCheckTransactionInvalid(t *testing.T) {
 	assert.NotNil(t, err)
 }
 
-func TestIfCheckTransactionValid(t *testing.T) {
+func TestIfCheckValiadTransactionForOperation(t *testing.T) {
 
 	var tx model.Transaction = model.Transaction{
 		Amount: -120,

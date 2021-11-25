@@ -1,6 +1,7 @@
 package service
 
 import (
+	"errors"
 	"pismo-desafio-app/pkg/model"
 	"pismo-desafio-app/pkg/repository"
 	"time"
@@ -23,17 +24,17 @@ func NewTransactionService() *TransactionService {
 func (ts *TransactionService) Create(t model.ApiTransaction) (model.Transaction, error) {
 	accountDb, err := ts.AccountService.GetById(t.AccountId)
 	if err != nil {
-		return model.Transaction{}, err
+		return model.Transaction{}, errors.New("Conta não encontrada")
 	}
 
-	OperationType, err := ts.OperationTypeService.GetById(t.OperationTypeId)
+	operationType, err := ts.OperationTypeService.GetById(t.OperationTypeId)
 	if err != nil {
-		return model.Transaction{}, err
+		return model.Transaction{}, errors.New("Operação invalida")
 	}
 
 	var newTransaction = model.Transaction{
 		Account:       accountDb,
-		OperationType: OperationType,
+		OperationType: operationType,
 		Amount:        t.Amount,
 		EventDate:     time.Now(),
 	}

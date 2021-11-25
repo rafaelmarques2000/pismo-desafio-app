@@ -25,5 +25,9 @@ func (as *AccountService)Create(a model.Account) (model.Account, error) {
 }
 
 func (as *AccountService) GetById(id uint) (model.Account, error) {
-	return as.AccountRepository.GetById(id)
+	accountDb, err := as.AccountRepository.GetById(id)
+	if err != nil {
+		return model.Account{}, errors.New("conta não encontrada")
+	}
+	return accountDb, err
 }
