@@ -31,7 +31,7 @@ func (t *Transaction) CheckTransaction() error {
 	if t.Amount >= 0 && (t.OperationType.ID == COMPRA_A_VISTA ||
 		t.OperationType.ID == COMPRA_PARCELADA ||
 		t.OperationType.ID == SAQUE) {
-		return errors.New("transação invalida para a operação selecionada")
+		return errors.New("transação invalida Operações de Compra a vista, Compra parcelada onde o valor deve ser debitado")
 	}
 	return nil
 }

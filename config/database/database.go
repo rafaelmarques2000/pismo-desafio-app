@@ -18,7 +18,16 @@ func OpenConnection() (*gorm.DB, error) {
 }
 
 func AutoMigratesDatabase() {
-	dbConnection.AutoMigrate(&model.Account{})
-	dbConnection.AutoMigrate(&model.OperationType{})
-	dbConnection.AutoMigrate(&model.Transaction{})
+	migrateAccountError := dbConnection.AutoMigrate(&model.Account{})
+	if migrateAccountError != nil {
+		return
+	}
+	migrateOperationTypeError := dbConnection.AutoMigrate(&model.OperationType{})
+	if migrateOperationTypeError != nil {
+		return
+	}
+	migrateTransactionError := dbConnection.AutoMigrate(&model.Transaction{})
+	if migrateTransactionError != nil {
+		return
+	}
 }
