@@ -4,12 +4,12 @@ import "gorm.io/gorm"
 
 type Account struct {
 	gorm.Model
-	DocNumber string `json:"doc_number"`
+	DocNumber string `json:"document_number"`
 }
 
 type ApiAccount struct {
 	Id        uint   `json:"id"`
-	DocNumber string `json:"doc_number"`
+	DocNumber string `json:"document_number"`
 }
 
 func (a *Account) GetApiAccount() ApiAccount {
