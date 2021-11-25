@@ -13,8 +13,12 @@
 ## Como executar o projeto
 Siga as instruções abaixo para iniciar o projeto
 
-- Execute **docker-compose up**
+- Execute **make serve**
 - Para acessar a api acesse **http://localhost:8081**
+- Para rebuild do projeto: **make rebuild**
+- Para executar tests: **make run-all-tests**
+
+
 
 ## Estrutura Projeto
 

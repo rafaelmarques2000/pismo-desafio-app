@@ -1,6 +1,6 @@
 version: '3.6'
 services:
-  process:
+  api:
     build: .
     ports:
       - "8081:8080"
