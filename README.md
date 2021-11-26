@@ -86,7 +86,7 @@ Obteve com sucesso a conta cadastrada
 HttpStatus: 422(Unprocessable Entity) Caso a conta Não exista
 ```json
 {
-  "msg": "record not found"
+  "msg": "conta não encontrada"
 }
 ```
 
@@ -124,7 +124,7 @@ Transação realizada com sucesso
 HttpStatus: 422(Unprocessable Entity) Caso a conta Não exista ou Operação
 ```json
 {
-  "msg": "record not found"
+  "msg": "Conta não encontrada"
 }
 ```
 
