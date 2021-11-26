@@ -8,6 +8,7 @@
 - Db: **Sqllite3(embbeded**
 - ORM: **goorm**
 - Router **Api: Mux**
+- GNU Make 4.2.1
 
 
 ## Como executar o projeto
@@ -17,6 +18,7 @@ Siga as instruções abaixo para iniciar o projeto
 - Para acessar a api acesse **http://localhost:8081**
 - Para rebuild do projeto: **make rebuild**
 - Para executar tests: **make run-all-tests**
+- Para entrar no shell do container: **make shell**
 
 
 
