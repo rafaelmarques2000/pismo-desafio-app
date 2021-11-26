@@ -9,25 +9,24 @@ import (
 var dbConnection *gorm.DB
 
 func OpenConnection() (*gorm.DB, error) {
-	connection, err := gorm.Open(sqlite.Open("./config/database/pismo_app.db"), &gorm.Config{
-		SkipDefaultTransaction: true,
-		PrepareStmt:            true,
-	})
-	dbConnection = connection
-	return dbConnection, err
+	if dbConnection == nil {
+		connection, err := gorm.Open(sqlite.Open("./config/database/pismo_app.db"), &gorm.Config{
+			SkipDefaultTransaction: true,
+			PrepareStmt:            true,
+		})
+		dbConnection = connection
+		return dbConnection, err
+	}
+	return dbConnection, nil
 }
 
 func AutoMigratesDatabase() {
-	migrateAccountError := dbConnection.AutoMigrate(&model.Account{})
-	if migrateAccountError != nil {
-		return
-	}
-	migrateOperationTypeError := dbConnection.AutoMigrate(&model.OperationType{})
-	if migrateOperationTypeError != nil {
-		return
-	}
-	migrateTransactionError := dbConnection.AutoMigrate(&model.Transaction{})
-	if migrateTransactionError != nil {
-		return
+	migrateError := dbConnection.AutoMigrate(
+		&model.Account{},
+		&model.OperationType{},
+		&model.Transaction{},
+	)
+	if migrateError != nil {
+		panic("Falha ao efetuar migração de banco de dados")
 	}
 }

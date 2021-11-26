@@ -7,8 +7,9 @@ import (
 	"testing"
 )
 
+//Teste a criação da struct ApiAccount para retorno de dados na api
 func TestIfCreateApiAccountStruct(t *testing.T)  {
-	var accountMock model.Account = model.Account{
+	var accountMock = model.Account{
 		Model: gorm.Model{
 			ID:1,
 		},
