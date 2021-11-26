@@ -1,24 +1,23 @@
-package tests
+package model
 
 import (
 	"github.com/stretchr/testify/assert"
 	"gorm.io/gorm"
-	"pismo-desafio-app/pkg/model"
 	"testing"
 )
 
 //Verificar se quando o valor for positivo e for uma conta de debito não esta valida
 func TestIfCheckInvalidTransactionForOperation(t *testing.T) {
-	var tx = model.Transaction{
+	var tx = Transaction{
 		Amount: 120,
-		Account: model.Account{
+		Account: Account{
 			Model: gorm.Model{
 				ID: 1,
 			},
 		},
-		OperationType: model.OperationType{
+		OperationType: OperationType{
 			Model: gorm.Model{
-				ID: model.COMPRA_A_VISTA,
+				ID: COMPRA_A_VISTA,
 			},
 		},
 	}
@@ -30,16 +29,16 @@ func TestIfCheckInvalidTransactionForOperation(t *testing.T) {
 //Verificar se quando o valor for negativo e for uma conta de debito passa no test
 func TestIfCheckValiadTransactionForOperation(t *testing.T) {
 
-	var tx = model.Transaction{
+	var tx = Transaction{
 		Amount: -120,
-		Account: model.Account{
+		Account: Account{
 			Model: gorm.Model{
 				ID: 1,
 			},
 		},
-		OperationType: model.OperationType{
+		OperationType: OperationType{
 			Model: gorm.Model{
-				ID: model.COMPRA_A_VISTA,
+				ID: COMPRA_A_VISTA,
 			},
 		},
 	}
@@ -53,16 +52,16 @@ func TestIfCheckValiadTransactionForOperation(t *testing.T) {
 
 func TestIfCheckValiadTransactionForOperationPagamento(t *testing.T) {
 
-	var tx = model.Transaction{
+	var tx = Transaction{
 		Amount: 120,
-		Account: model.Account{
+		Account: Account{
 			Model: gorm.Model{
 				ID: 1,
 			},
 		},
-		OperationType: model.OperationType{
+		OperationType: OperationType{
 			Model: gorm.Model{
-				ID: model.PAGAMENTO,
+				ID: PAGAMENTO,
 			},
 		},
 	}
@@ -75,11 +74,11 @@ func TestIfCheckValiadTransactionForOperationPagamento(t *testing.T) {
 
 //Teste a criação da struct ApiTransaction para retorno de dados na api
 func TestIfCreateApiTransactionStruct(t *testing.T)  {
-	var transaction= model.Transaction{
+	var transaction= Transaction{
 		Model: gorm.Model{
 			ID:1,
 		},
 	}
-	assert.IsType(t, model.ApiTransaction{},transaction.GetApiTransaction())
+	assert.IsType(t, ApiTransaction{},transaction.GetApiTransaction())
 }
 
