@@ -24,6 +24,10 @@ func (as *AccountService)Create(a model.Account) (model.Account, error) {
 	return as.AccountRepository.Create(a)
 }
 
+func (as *AccountService)Update(a model.Account) (model.Account, error) {
+	return as.AccountRepository.Update(a)
+}
+
 func (as *AccountService) GetById(id uint) (model.Account, error) {
 	accountDb, err := as.AccountRepository.GetById(id)
 	if err != nil {
@@ -31,3 +35,5 @@ func (as *AccountService) GetById(id uint) (model.Account, error) {
 	}
 	return accountDb, err
 }
+
+

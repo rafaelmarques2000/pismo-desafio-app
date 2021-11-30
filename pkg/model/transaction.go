@@ -41,6 +41,21 @@ func (t *Transaction) CheckTransaction() error {
 	return nil
 }
 
+func (t *Transaction) Debit() error {
+	var DebitAmount = (t.Amount) * -1
+	if DebitAmount > t.Account.AvailableCreditLimit {
+		return errors.New("Valor da transação não pode ser maior que o saldo disponivel")
+	}
+
+	t.Account.AvailableCreditLimit -= DebitAmount
+	return nil
+}
+
+func (t *Transaction) Credit() error {
+	t.Account.AvailableCreditLimit += t.Amount
+	return nil
+}
+
 //Metodo para criar uma versão mais simples do modelo para retorno via http
 func (t *Transaction) GetApiTransaction() ApiTransaction {
 	return ApiTransaction{

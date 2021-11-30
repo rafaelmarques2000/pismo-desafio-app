@@ -39,14 +39,34 @@ func (ts *TransactionService) Create(t model.ApiTransaction) (model.Transaction,
 		EventDate:     time.Now(),
 	}
 
+	var balanceaccountError error
+
+	if t.OperationTypeId != model.PAGAMENTO {
+		balanceaccountError = newTransaction.Debit()
+	}else {
+		balanceaccountError = newTransaction.Credit()
+	}
+
+	if balanceaccountError != nil {
+		return model.Transaction{}, balanceaccountError
+	}
+
 	transactionError := newTransaction.CheckTransaction()
 	if transactionError != nil {
 		return model.Transaction{}, transactionError
 	}
 
 	transactionDb, err := ts.TransactionRepository.Create(newTransaction)
+
 	if err != nil {
 		return model.Transaction{}, err
 	}
+
+	_, err = ts.AccountService.Update(newTransaction.Account)
+
+	if err != nil {
+		return model.Transaction{}, err
+	}
+
 	return transactionDb, err
 }

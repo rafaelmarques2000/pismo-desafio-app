@@ -23,6 +23,11 @@ func (ar *AccountRepository) Create(a model.Account) (model.Account, error) {
 	return a, result.Error
 }
 
+func (ar *AccountRepository) Update(a model.Account) (model.Account, error) {
+	result := ar.Db.Model(a).Update("AvailableCreditLimit", a.AvailableCreditLimit)
+	return a, result.Error
+}
+
 func (ar *AccountRepository) GetById(id uint) (model.Account, error) {
 	var accountSearch model.Account
 	result := ar.Db.Model(&model.Account{}).First(&accountSearch, id)
